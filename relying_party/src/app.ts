@@ -2,10 +2,12 @@ import createHttpError from "http-errors";
 import express, { Request, Response, NextFunction } from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
+import dotenv from "dotenv";
 
 import { router as indexRouter } from "./routes/index";
 
 const app = express();
+dotenv.config();
 
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
