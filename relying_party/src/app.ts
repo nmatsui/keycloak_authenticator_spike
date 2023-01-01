@@ -7,6 +7,7 @@ import logger from "morgan";
 import passport from "./libs/passport";
 import { router as indexRouter } from "./routes/index";
 import { router as authRouter } from "./routes/auth";
+import { router as userInfoRouter } from "./routes/userinfo";
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/", authRouter);
+app.use("/", userInfoRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) =>
     next(createHttpError(404))
