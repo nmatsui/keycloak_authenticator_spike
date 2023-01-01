@@ -1,0 +1,6 @@
+**/node_modules/
+**/dist/
+**/.env
+**/.gitignore
+**/.tool-versions
+**/sample.env
