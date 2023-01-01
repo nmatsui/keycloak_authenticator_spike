@@ -3,5 +3,9 @@ import { Router, Request, Response, NextFunction } from "express";
 export const router = Router();
 
 router.get("/", (req: Request, res: Response, next: NextFunction) => {
-  res.render("index", { title: "Express" });
+  if (req.isAuthenticated()) {
+    res.render("authed", { user: req.user });
+  } else {
+    res.render("index");
+  }
 });

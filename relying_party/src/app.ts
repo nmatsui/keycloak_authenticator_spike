@@ -1,13 +1,14 @@
 import createHttpError from "http-errors";
 import express, { Request, Response, NextFunction } from "express";
+import session from "express-session";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-import dotenv from "dotenv";
 
+import passport from "./libs/passport";
 import { router as indexRouter } from "./routes/index";
+import { router as authRouter } from "./routes/auth";
 
 const app = express();
-dotenv.config();
 
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
@@ -17,8 +18,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("./public"));
+app.use(session({
+    secret: 'foobar',
+    resave: false,
+    saveUninitialized: false,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/", indexRouter);
+app.use("/", authRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) =>
     next(createHttpError(404))
