@@ -15,4 +15,26 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: passwd
     command:
       - start-dev
+    healthcheck:
+      test: "curl -f http://localhost:8080 || exit 1"
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  relying_party:
+    build:
+      context: relying_party
+      dockerfile: Dockerfile
+    container_name: rp
+    ports:
+      - "3000:3000"
+    environment:
+      ISSUER_BASE_URL: http://keycloak:8080/realms/example/
+      CLIENT_ID: example-client
+      REDIRECT_URL: http://localhost:3000/callback
+      CLIENT_SECRET: ApX7ppB5eKPyLNbKwdwx7UcgUydoZMpn
+    depends_on:
+      keycloak:
+        condition: service_healthy
 
