@@ -1,6 +1,20 @@
 import dotenv from "dotenv";
 import passport from "passport";
+import jwt_decode from "jwt-decode";
 import { Issuer, Strategy, TokenSet, UserinfoResponse } from "openid-client";
+
+declare global {
+  namespace Express {
+    interface User {
+      userinfo: UserinfoResponse,
+      token: {
+        id_token: any,
+        access_token: any,
+        refresh_token: any,
+      }
+    }
+  }
+}
 
 dotenv.config();
 
@@ -16,7 +30,15 @@ dotenv.config();
   passport.use(
     "oidc",
     new Strategy({client}, (tokenSet: TokenSet, userinfo: UserinfoResponse, done: any) => {
-      return done(null, userinfo);
+      const user = {
+        userinfo: userinfo,
+        token: {
+          id_token: tokenSet?.id_token ? jwt_decode(tokenSet.id_token) : undefined,
+          access_token: tokenSet?.access_token ? jwt_decode(tokenSet.access_token) : undefined,
+          refresh_token: tokenSet?.refresh_token ? jwt_decode(tokenSet.refresh_token) : undefined
+        }
+      }
+      return done(null, user);
     })
   );
 

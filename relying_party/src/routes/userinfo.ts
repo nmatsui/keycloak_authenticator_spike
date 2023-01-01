@@ -5,5 +5,5 @@ import { isLoggedIn } from "../libs/utils";
 export const router = Router();
 
 router.get("/userinfo", isLoggedIn, (req: Request, res: Response, next: NextFunction) => {
-  res.render("userinfo", { userinfo: JSON.stringify(req.user, null, 2)});
+  res.render("userinfo", { userinfo: JSON.stringify(req.user?.userinfo, null, 2)});
 });
