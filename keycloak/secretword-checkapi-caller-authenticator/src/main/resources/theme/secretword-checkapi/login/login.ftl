@@ -40,17 +40,11 @@
                 </div>
 
                 <div class="${properties.kcFormGroupClass!}">
-                    <label for="secretword" class="${properties.kcLabelClass!}">secret word</label>
+                    <label for="secretWord" class="${properties.kcLabelClass!}">secret word</label>
 
-                    <input tabindex="2" id="secretword" class="${properties.kcInputClass!}" name="secretword" type="text" autocomplete="off"
+                    <input tabindex="2" id="secretWord" class="${properties.kcInputClass!}" name="secretWord" type="text" autocomplete="off"
                            aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                     />
-
-                    <#if messagesPerField.existsError('username','password')>
-                        <span id="input-error" class="${properties.kcInputErrorMessageClass!}" aria-live="polite">
-                                ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
-                        </span>
-                    </#if>
 
                 </div>
 
