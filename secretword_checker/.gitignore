@@ -1,0 +1,15 @@
+node_modules
+
+dist/**/*
+coverage
+
+.env
+
+
+.tool-versions
+.idea
+*.iml
+
+.DS_Store
+Thumbs.db
+

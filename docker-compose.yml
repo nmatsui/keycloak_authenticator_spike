@@ -13,6 +13,7 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: passwd
+      CHECK_API_ENDPOINT: http://checker:3000/users/%s/check/
     command:
       - start-dev
     healthcheck:
@@ -34,6 +35,18 @@ services:
       CLIENT_ID: example-client
       REDIRECT_URL: http://localhost:3000/callback
       CLIENT_SECRET: ApX7ppB5eKPyLNbKwdwx7UcgUydoZMpn
+    depends_on:
+      keycloak:
+        condition: service_healthy
+
+  secretword_checker:
+    build:
+      context: secretword_checker
+      dockerfile: Dockerfile
+    container_name: checker
+    environment:
+      SECRET_KEY: secretWord
+      SECRET_WORD: checkapi
     depends_on:
       keycloak:
         condition: service_healthy
