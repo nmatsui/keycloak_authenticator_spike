@@ -13,6 +13,7 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: passwd
+      CHECK_API_ENDPOINT: http://checker:3000/users/%s/check/
     command:
       - start-dev
     healthcheck:
