@@ -38,3 +38,15 @@ services:
       keycloak:
         condition: service_healthy
 
+  secretword_checker:
+    build:
+      context: secretword_checker
+      dockerfile: Dockerfile
+    container_name: checker
+    environment:
+      SECRET_KEY: secretWord
+      SECRET_WORD: checkapi
+    depends_on:
+      keycloak:
+        condition: service_healthy
+
