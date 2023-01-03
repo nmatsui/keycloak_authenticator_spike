@@ -12,7 +12,7 @@ This is a spike repository for examining keycloak authenticator.
 ## How to use
 1. `docker-compose build`
 2. `docker-compose up`
-3. access [index page of sample relying party](http://localhost:3000)
+3. access http://localhost:3000 to start [index page of sample relying party](http://localhost:3000) 
 4. log in to sample site by using below parameters:
   * username: testuser
   * password: passwd
